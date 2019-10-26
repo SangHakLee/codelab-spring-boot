@@ -81,14 +81,146 @@ https://kogun82.tistory.com/122
 # 실습 2
 ## DB
 1. `src` - `main` - `java` - `kr.codelabs.member`
+1. Department
 	1. package: entity
 	1. class: **Department**
 		1. `@Entity`
 		1. `@Table`
 		1. `@Getter`
+1. DepartmentRepository
 	1. package: repository
 	1. interface: **DepartmentRepository**
+1. DepartmentService
 	1. package: service
 	1. interface: **DepartmentService**
+1. DepartmentController
 	1. package: controller
 	1. class: **DepartmentController**
+	
+## CRUD
+### GET
+- `@PathVariable`
+- `@RequestParam`
+
+### POST
+- `@RequestBody`
+
+
+## Member
+
+
+
+
+
+## Swagger
+
+https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+
+### 1. dependency 추가
+`pom.xml`
+```xml
+
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.9.2</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.9.2</version>
+</dependency>
+```
+
+### config
+1. package: config
+1. class: SwaggerConfig
+1. ApiOperation (각 컨트롤러)
+
+### swagger-ui
+http://127.0.0.1:8080/swagger-ui.html
+
+
+## OAuth 인증 서버 구현
+
+### DB 
+
+```
+src - main - resources
+	/data.sql
+	/schema.sql
+```
+- [data.sql](https://raw.githubusercontent.com/mac2me/spring-oauth-server/master/OAuthServer/src/main/resources/data.sql)
+- [schema.sql](https://raw.githubusercontent.com/mac2me/spring-oauth-server/master/OAuthServer/src/main/resources/schema.sql)
+
+#### application.yml
+```yaml
+initialization-mode: always # spring 구동 시 resources 하위 .sql 실행
+continue-on-error: true # 에러나도 실행. 개발에서만 사용
+```
+
+### API 서버
+#### pom.xml
+```xml
+	<dependency>
+        <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-oauth2</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-security</artifactId>
+     </dependency>
+</dependencies>
+
+<dependencyManagement>
+   <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring-cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<repositories>
+    <repository>
+        <id>spring-milestones</id>
+        <name>Spring Milestones</name>
+        <url>https://repo.spring.io/milestone</url>
+    </repository>
+</repositories>
+```
+- dependency
+	- spring-cloud-starter-oauth2
+	- spring-cloud-starter-security
+- dependencyManagement
+- repositories
+
+
+## Spring Boot Actuator
+https://www.baeldung.com/spring-boot-actuators
+
+- http://localhost:8080/actuator/health
+- http://localhost:8080/actuator/env
+
+### jconsole
+```bash
+$ jconsole
+```
+
+# 배포
+
+사전에 maven 설치
+```bash
+$ mvn package
+
+$ cd target # .jar 파일이 생성됨
+
+$ java -jar NAME.jar
+```
+
+
+zard21@gmail.com
