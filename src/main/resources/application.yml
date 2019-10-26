@@ -17,3 +17,10 @@ logging:
     org.hibernate.type: trace # bind 쿼리의 내용까지 출력. ? 부분이 실제 값으로 표현됨
 server:
   port: 8080
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: password
+    resource:
+      token-info-uri: http://localhost:8081/oauth/check_token # 인증서버 URL
