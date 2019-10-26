@@ -35,9 +35,8 @@ public class DepartmentService {
                     HttpStatus.NOT_FOUND,
                     "Department not found"
             );
-        } else {
-            return department;
         }
+        return department;
     }
 
     public Department getDepartmentByName(String name) {
@@ -48,9 +47,8 @@ public class DepartmentService {
                     HttpStatus.NOT_FOUND,
                     "Department not found"
             );
-        } else {
-            return department;
         }
+        return department;
     }
 
     public Department createDepartment(Department department) {
@@ -66,10 +64,10 @@ public class DepartmentService {
                     HttpStatus.NOT_FOUND,
                     "Department not found"
             );
-        } else {
-            savedDepartment.update(department);
-            return departmentRepository.save(savedDepartment);
         }
+
+        savedDepartment.update(department);
+        return departmentRepository.save(savedDepartment);
     }
 
     public void deleteDepartment(Long id) {
@@ -83,14 +81,6 @@ public class DepartmentService {
         }
         departmentRepository.deleteById(id);
 
-//        if (department == null) {
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND,
-//                    "Department not found"
-//            );
-//        } else {
-//            departmentRepository.deleteById(id);
-//        }
     }
 
 }
