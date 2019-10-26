@@ -1,5 +1,8 @@
 package kr.codelabs.member.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import kr.codelabs.member.entity.Department;
 import kr.codelabs.member.service.DepartmentService;
 import lombok.AllArgsConstructor;
@@ -26,12 +29,17 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @GetMapping("/departments")
+    @ApiOperation(value = "전체 부서 조회", notes = "모든 부서를 조회하는 API")
     public ResponseEntity<?> getAllDepartment() { // ?: wildcard
         List<Department> departments = departmentService.getAllDepartments();
 
         return ResponseEntity.ok(departments);
     }
 
+    @ApiOperation(value = "부서 조회", notes = "ID 검색")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "부서 ID", paramType = "path", dataType = "long")
+    })
     @GetMapping("/departments/{id}") // {id}: PathVariable
     public ResponseEntity<?> getDepartment(@PathVariable Long id) { // @PathVariable url로 넘어 온 값 사용
         Department department = departmentService.getDepartment(id);

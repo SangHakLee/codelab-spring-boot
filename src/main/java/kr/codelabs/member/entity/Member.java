@@ -5,16 +5,11 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-
-/*
-setCurrentTime 현재시간 넣어주는 메소드
- */
 
 @Entity
-@Table(name= "department") // 기본적으로 Table 이름은 클래스와 동일하게 만들어짐.
-@Getter // 자동으로 getter 만들어줌
-public class Department {
+@Table(name = "member")
+@Getter
+public class Member {
 
     @Id // PK
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AI
@@ -23,15 +18,8 @@ public class Department {
     @Column // 이 변수는 DB 컬럼이다
     private String name;
 
-
-    /*
-    fetch
-        LAZY: 필요할 때만 가져옴
-        EAGER: 조인된 모든 데이터 가져옴
-     */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // Relation
-    @JoinColumn(name = "department_id")
-    private Collection<Member> members;
+    @Column(name = "department_id")
+    private Long departmentId;
 
 
     @Column(name = "created_at") // DB에 저장된 이름 지정
@@ -42,16 +30,13 @@ public class Department {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    /*
-     */
     public void setCurrentTime() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void update(Department department) {
-        this.name = department.getName();
+    public void update(Member member) {
+        this.name = member.getName();
         this.updatedAt = LocalDateTime.now();
     }
-
 }
