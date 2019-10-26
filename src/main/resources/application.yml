@@ -24,3 +24,14 @@ security:
       client-secret: password
     resource:
       token-info-uri: http://localhost:8081/oauth/check_token # 인증서버 URL
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+info:
+  app:
+    name: Hello
+    java:
+      source: 1.8

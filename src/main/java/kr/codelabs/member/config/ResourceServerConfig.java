@@ -12,6 +12,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated(); // 모든 요청이 인증이 필수, 예외 처리도 가능(찾아볼 것)
     }
 }
